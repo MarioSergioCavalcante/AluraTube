@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { CSSReset } from "../src/components/CSSReset";
 import Menu from "../src/components/Menu";
 import { StyledTimeline } from "../src/components/Timeline"
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 function HomePage() {
     /*   const mensagem = "Bem vindo, AluraTube";  */
     const EstiloPagina = {
@@ -23,7 +23,7 @@ function HomePage() {
                 <Menu></Menu>
                 <Header ></Header>
                 <Timeline playlist={config.playlists}></Timeline>
-
+                <Favoritos favoritos={config.favoritos}></Favoritos>
             </div>
         </>
     )
@@ -41,7 +41,7 @@ const StyledHeader = styled.div`
   .user-info{
     display: flex;
     align-items: center;
-    width: 100%;
+    width: 50%;
     padding: 16px 32px;
     gap: 16px;
   }
@@ -105,14 +105,15 @@ const StyledBanner = styled.div`
 
   }
 `
-const imgs =  ["https://images.unsplash.com/photo-1557463008-9e9f17d00bd5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-"https://images.unsplash.com/photo-1611162616475-46b635cb6868?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
-"https://images.unsplash.com/photo-1485846234645-a62644f84728?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=859&q=80",
-"https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-"https://images.unsplash.com/photo-1515879218367-8466d910aaa4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80",
-"https://images.unsplash.com/photo-1537884944318-390069bb8665?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-"https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzN8fGNvZGV8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
+const imgs = ["https://images.unsplash.com/photo-1557463008-9e9f17d00bd5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+    "https://images.unsplash.com/photo-1611162616475-46b635cb6868?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
+    "https://images.unsplash.com/photo-1485846234645-a62644f84728?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=859&q=80",
+    "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+    "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80",
+    "https://images.unsplash.com/photo-1537884944318-390069bb8665?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+    "https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzN8fGNvZGV8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
 ];
+
 
 function Banner() {
     const [ImagemAtual, setImagemAtual] = useState(null);
@@ -121,7 +122,7 @@ function Banner() {
         const Intervalo = setInterval(() => {
             setImagemAtual(imgs[Math.floor(Math.random() * imgs.length)]);
         }, 2000)
-        
+
         return () => clearInterval(Intervalo);
     }, [])
 
@@ -130,4 +131,55 @@ function Banner() {
             <img src={ImagemAtual} />
         </StyledBanner>
     );
+}
+
+const StyledFav = styled.div`
+  img {
+        margin-top:50px;    
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+  }
+  .user-info{
+    display: block;
+    align-items: center;
+    width: 100%;
+    padding: 16px 32px;    
+  }
+`;
+function Favoritos(props) {
+    const fav_devs = Object.keys(props.favoritos);
+    return (<section>
+        <h2><span>Favoritos</span></h2>
+        <p>
+            {fav_devs.map((devs) =>{
+            //    console.log(devs);
+                const pessoas = props.favoritos[devs]; 
+                return(<StyledFav>
+                   
+                    {pessoas.map((pessoa)=>{
+                        return (
+                            <section className="user-info">
+                            <img src={pessoa.github} />
+                            <div>
+                                <h4>
+                                    {pessoa.name}
+                                </h4>
+                                <p>
+                                    {pessoa.job}
+                                </p>
+                            </div>
+                        </section>
+                        )
+                    })
+                    } 
+                    </StyledFav>
+                    );
+                    
+
+               
+                })};
+        </p>
+        </section>
+    )
 }
