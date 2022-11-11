@@ -44,3 +44,40 @@ export const StyledTimeline = styled.div`
     }
   }
 `;
+
+export default function Timeline({ searchValue, ...props }) {
+    //  console.log("Dentro do componente", props);
+ 
+    const playlistName = Object.keys(props.playlist);
+    return (
+        <StyledTimeline>
+            {playlistName.map((playlistName) => { //É um mapeamento de cada um dos itens,, funciona como um foreach
+                const videos = props.playlist[playlistName]; //Pega cada valor através do índice do nome           return playlistName;
+            //    console.log(videos)
+                return (
+                    <section key={playlistName}>
+                        <h2>{playlistName}</h2>
+                        <div>
+                            {videos.filter((video) => {
+                                const videoNorm = video.title.toLowerCase();
+                                const buscaNorm = searchValue.toLowerCase();
+                                return (videoNorm.includes(buscaNorm)
+                                )
+                            }).map((video) => {
+                                return (
+                                    <a key={video.url} href={video.url}>
+                                        <img src={video.thumb} />
+                                        <span>
+                                            {video.title}
+                                        </span>
+                                    </a>
+                                );
+                            })
+                            }
+                        </div>
+                    </section>
+                );
+            })}
+        </StyledTimeline>
+    );
+};
