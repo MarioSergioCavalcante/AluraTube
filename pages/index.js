@@ -1,13 +1,13 @@
 import config from "../config.json";
 import styled from "styled-components";
 import { CSSReset } from "../src/components/CSSReset";
-import Menu from "../src/Menu";
-import { StyledTimeline } from "../src/Timeline"
+import Menu from "../src/components/Menu";
+import { StyledTimeline } from "../src/components/Timeline"
 import React from "react";
-import Banner from "../src/Banner";
-import Favoritos from "../src/Favoritos";
-import Timeline from "../src/Timeline";
-import Header from "../src/Header"
+import Banner from "../src/components/Banner";
+import Favoritos from "../src/components/Favoritos";
+import Timeline from "../src/components/Timeline";
+import Header from "../src/components/Header"
 function HomePage() {
     /*   const mensagem = "Bem vindo, AluraTube";  */
     const EstiloPagina = {
@@ -20,7 +20,7 @@ function HomePage() {
    // console.log("Dentro da Home: ", valorDoFiltro)
     return (
         <>
-            <CSSReset />
+           
             <div style={{
                 display: "flex",
                 flexDirection: "column",

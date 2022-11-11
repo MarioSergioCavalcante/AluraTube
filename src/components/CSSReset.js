@@ -6,9 +6,12 @@ export const CSSReset = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+   
   }
   body {
-    font-family: sans-serif;
+    font-family: Helvetica;
+    background-color: ${({theme}) => theme.backgroundBase};
+    color: ${({theme}) => theme.textColorBase};
   }
   /* NextJS */
   html {

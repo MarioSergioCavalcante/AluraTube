@@ -1,7 +1,7 @@
 import styled from "styled-components";
 const StyledHeader = styled.div`
+
   img {
-        
         width: 80px;
         height: 80px;
         border-radius: 50%;
@@ -12,7 +12,8 @@ const StyledHeader = styled.div`
     width: 50%;
     padding: 16px 32px;
     gap: 16px;
-  }
+  };
+  background-color: ${({theme})=> theme.backgroundLevel1};
 `;
 export default function Header(props) {
     return (

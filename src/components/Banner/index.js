@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 const StyledBanner = styled.div`
   img {
-     
        width: 1350px;
        height: 230px;
        position: relative;
