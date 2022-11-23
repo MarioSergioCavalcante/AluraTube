@@ -8,13 +8,36 @@ import Banner from "../src/components/Banner";
 import Favoritos from "../src/components/Favoritos";
 import Timeline from "../src/components/Timeline";
 import Header from "../src/components/Header"
+import { createClient } from "@supabase/supabase-js";
+import { videoService } from "../src/services/videoService";
+
+
 function HomePage() {
     /*   const mensagem = "Bem vindo, AluraTube";  */
-    const EstiloPagina = {
-        //   backgroundColor: "red" 
-    };
-    const [valorDoFiltro, setValorDoFiltro] = React.useState("a");
+    const service = videoService();
+    const [valorDoFiltro, setValorDoFiltro] = React.useState("");
+    const [playlists,setPlaylists] = React.useState({});
 
+    React.useEffect(() => {
+        service
+        .getAllVideos()
+        .then((dados) => {
+            console.log(dados.data);
+            const novaPlaylist = { ...playlists};
+            dados.data.forEach((video) => {
+                if (!novaPlaylist[video.playlist]) {
+                    novaPlaylist[video.playlist] = [];
+                }
+                novaPlaylist[video.playlist].push(video);
+            })
+            setPlaylists(novaPlaylist);
+        })
+        .catch((err) => {
+            console.log("Deu erro:", err);
+        });
+;
+    },[]);
+   console.log("Playlist prontos: ", playlists);
 
 
    // console.log("Dentro da Home: ", valorDoFiltro)
@@ -30,7 +53,7 @@ function HomePage() {
                 <Banner imags = {config.bg}></Banner>
                 <Menu valorDoFiltro={valorDoFiltro} setValorDoFiltro={setValorDoFiltro}></Menu>
                 <Header Pessoal = {config}></Header>
-                <Timeline searchValue={valorDoFiltro} playlist={config.playlists}>
+                <Timeline searchValue={valorDoFiltro} playlist={playlists}>
                     Conteúdo
                 </Timeline>
                 <Favoritos favoritos={config.favoritos}></Favoritos>

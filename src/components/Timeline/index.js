@@ -4,7 +4,7 @@ export const StyledTimeline = styled.div`
   flex: 1;
   width: 100%;
   padding: 16px;
-  overflow: hidden;
+  //overflow: hidden;
  
   h2 {
     font-size: 16px;
@@ -22,7 +22,7 @@ export const StyledTimeline = styled.div`
   section {
     width: 100%;
     padding: 0;
-    overflow: hidden;
+    //overflow: hidden;
     padding: 16px;
     div {
       width: calc(100vw - 16px * 4);
@@ -66,7 +66,7 @@ export default function Timeline({ searchValue, ...props }) {
                                 )
                             }).map((video) => {
                                 return (
-                                    <a key={video.url} href={video.url}>
+                                    <a key={video.id_video} href={video.url}>
                                         <img src={video.thumb} />
                                         <span>
                                             {video.title}
